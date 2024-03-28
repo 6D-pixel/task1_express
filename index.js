@@ -11,8 +11,8 @@ const port = process.env.PORT || 3001;
 const apiKey = process.env.API_KEY;
 
 app.get("/weather", async (req, res) => {
-  const latlng = req.params.q;
-
+  const latlng = req.query.q;
+  console.log(req.params);
   try {
     const response_key = await axios.get(
       `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search`,
@@ -25,7 +25,7 @@ app.get("/weather", async (req, res) => {
     );
 
     const weatherKey = response_key.data.Key;
-
+    console.log(response_key.data) 
     const response_weather = await axios.get(
       `https://dataservice.accuweather.com/currentconditions/v1/${weatherKey}`,
       {
